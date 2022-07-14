@@ -29,11 +29,11 @@ update_system () {
 }
 
 install_kubernetes () {
+    update_system
     apt-get install -y kubelet kubeadm kubectl
     apt-mark hold kubelet kubeadm kubectl
     swapoff -a
 }
 
-update_system
 add_ppa_kubernetes
 install_kubernetes

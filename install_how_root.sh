@@ -36,6 +36,12 @@ start_kubernetes () {
     kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 }
 
+reboot_containerd () {
+    rm /etc/containerd/config.toml
+    systemctl restart containerd
+}
+
+reboot_containerd
 add_ppa_kubernetes
 install_kubernetes
 start_kubernetes

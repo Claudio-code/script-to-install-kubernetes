@@ -15,14 +15,13 @@ sysctl --system
 
 add_ppa_kubernetes () {
     update_system
-    install_packages_apt "apt-transport-https ca-certificates curl"
     curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
     echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 }
 
 install_kubernetes () {
     update_system
-    install_packages_apt "kubelet kubeadm kubectl"
+    apt-get install kubelet kubeadm kubectl -y &> /dev/null
     apt-mark hold kubelet kubeadm kubectl
     swapoff -a
 }
@@ -30,9 +29,6 @@ install_kubernetes () {
 start_kubernetes () {
     kubeadm config images pull
     kubeadm init
-    mkdir -p $HOME/.kube
-    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    sudo chown $(id -u):$(id -g) $HOME/.kube/config
     kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 }
 

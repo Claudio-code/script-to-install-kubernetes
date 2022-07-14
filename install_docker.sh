@@ -11,7 +11,7 @@ update_system () {
 }
 
 add_docker_official_key_and_repository () {
-    sudo mkdir -p /etc/apt/keyrings
+    mkdir -p /etc/apt/keyrings
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     update_system
@@ -20,9 +20,9 @@ add_docker_official_key_and_repository () {
 install_packages_apt () {
     local packages="$1"
     update_system
-    sudo apt install "$software" -y &> /dev/null
+    apt-get install "$software" -y &> /dev/null
 }
 
-install_packages_apt "ca-certificates curl gnupg lsb-release"
+apt-get install apt-transport-https ca-certificates curl gnupg lsb-release -y &> /dev/null
 add_docker_official_key_and_repository
-install_packages_apt "docker-ce docker-ce-cli containerd.io"
+apt-get install docker-ce docker-ce-cli containerd.io -y &> /dev/null

@@ -65,6 +65,7 @@ add_kubernetes_in_cluster_master () {
 multipass_install
 create_clusters
 update_cluster_nodes
-add_kube_config_in_nodes
 add_kubernetes_in_two_node_clusters
 add_kubernetes_in_cluster_master
+add_kube_config_in_nodes
+

@@ -30,9 +30,9 @@ update_cluster_nodes () {
 
 add_kube_config_in_nodes () {
     println "Adding env kubeconfig in three virtual-machines."
-    multipass exec kube-node-master -- bash -c "echo 'export KUBECONFIG=/etc/kubernetes/admin.conf' >> .bashrc" &> /dev/null
-    multipass exec kube-node-one -- bash -c "echo 'export KUBECONFIG=/etc/kubernetes/admin.conf' >> .bashrc" &> /dev/null
-    multipass exec kube-node-two -- bash -c "echo 'export KUBECONFIG=/etc/kubernetes/admin.conf' >> .bashrc" &> /dev/null
+    multipass exec kube-node-master -- bash -c "mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config" &> /dev/null
+    multipass exec kube-node-one -- bash -c "mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config" &> /dev/null
+    multipass exec kube-node-two -- bash -c "mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config" &> /dev/null
 }
 
 add_kubernetes_in_two_node_clusters () {

@@ -31,6 +31,9 @@ install_kubernetes () {
     apt-get install kubelet kubeadm kubectl -y &> /dev/null
     apt-mark hold kubelet kubeadm kubectl
     swapoff -a
+
+    sudo systemctl enable kubelet
+    sudo systemctl restart kubelet
 }
 
 install_kubernetes

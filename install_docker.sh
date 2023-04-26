@@ -26,3 +26,6 @@ install_packages_apt () {
 apt-get install apt-transport-https ca-certificates curl gnupg lsb-release -y &> /dev/null
 add_docker_official_key_and_repository
 apt-get install docker-ce docker-ce-cli containerd.io -y &> /dev/null
+
+sudo systemctl enable docker
+sudo systemctl restart docker

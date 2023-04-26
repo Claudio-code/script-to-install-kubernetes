@@ -33,6 +33,13 @@ add_kube_config_in_nodes () {
     multipass exec kube-node-master -- bash -c "mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config" &> /dev/null
     multipass exec kube-node-one -- bash -c "mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config" &> /dev/null
     multipass exec kube-node-two -- bash -c "mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config" &> /dev/null
+
+    multipass exec kube-node-master -- bash -c "echo 'sudo systemctl restart docker' >> .bashrc" &> /dev/null
+    multipass exec kube-node-master -- bash -c "echo 'sudo systemctl restart kubelet' >> .bashrc" &> /dev/null
+    multipass exec kube-node-one -- bash -c "echo 'sudo systemctl restart docker' >> .bashrc" &> /dev/null
+    multipass exec kube-node-one -- bash -c "echo 'sudo systemctl restart kubelet' >> .bashrc" &> /dev/null
+    multipass exec kube-node-two -- bash -c "echo 'sudo systemctl restart docker' >> .bashrc" &> /dev/null
+    multipass exec kube-node-two -- bash -c "echo 'sudo systemctl restart kubelet' >> .bashrc" &> /dev/null
 }
 
 add_kubernetes_in_two_node_clusters () {

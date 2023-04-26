@@ -40,6 +40,8 @@ add_kube_config_in_nodes () {
     multipass exec kube-node-one -- bash -c "echo 'sudo systemctl restart kubelet' >> .bashrc" &> /dev/null
     multipass exec kube-node-two -- bash -c "echo 'sudo systemctl restart docker' >> .bashrc" &> /dev/null
     multipass exec kube-node-two -- bash -c "echo 'sudo systemctl restart kubelet' >> .bashrc" &> /dev/null
+
+    multipass exec kube-node-master -- bash -c "sudo cat /etc/kubernetes/admin.conf" > "$HOME/.kube/config"
 }
 
 add_kubernetes_in_two_node_clusters () {
